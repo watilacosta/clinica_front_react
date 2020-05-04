@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
@@ -67,6 +65,26 @@ const useStyles = makeStyles((theme) => ({
   },
   alert: {
     marginTop: theme.spacing(2)
+  }, 
+  input: {
+    '& label.Mui-focused': {
+      color: 'black',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#00CCCC',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'lightgray',
+      },
+      '&:hover fieldset': {
+        borderColor: 'gray',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#00CCCC',
+      },
+    },
+    
   }
 }))
 
@@ -107,7 +125,7 @@ const FormLogin = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Acesso do Usuário
+            Login do Usuário
           </Typography>
           { open ? <Alert onClose={() => setOpen(false)} 
                           severity="warning"
@@ -119,6 +137,7 @@ const FormLogin = () => {
             <TextField
               variant="outlined"
               margin="normal"
+              className={classes.input}
               required
               fullWidth
               id="email"
@@ -133,20 +152,17 @@ const FormLogin = () => {
             <TextField
               variant="outlined"
               margin="normal"
+              className={classes.input}
               required
               fullWidth
               name="password"
-              label="password"
+              label="Senha"
               type="password"
               id="password"
               value={password}
               autoComplete="current-password"
               onChange={e => setPassword(e.target.value)}
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Lembrar-me"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -155,14 +171,7 @@ const FormLogin = () => {
             >
               Entrar
             </Button>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href="!#" variant="body2">
-                  Esqueceu a senha?
-                </Link>
-              </Grid>
-            </Grid> */}
-            <Box mt={2}>
+            <Box mt={4}>
               <Copyright />
             </Box>
           </form>
