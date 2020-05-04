@@ -15,7 +15,7 @@ const LinksMenu = () => {
   return(
     <>
       <Link component={RouterLink}
-            to="/"
+            to="/app"
             color="inherit"
             underline="hover"
             className={classes.linkMenu}>

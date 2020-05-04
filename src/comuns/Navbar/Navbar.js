@@ -8,8 +8,10 @@ import IconButton from '@material-ui/core/IconButton'
 import Container from '@material-ui/core/Container'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import { createBrowserHistory } from 'history'
 
 import LinksMenu from './components/LinksMenu/LinksMenu'
+import { logout } from '../../services/auth'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -33,15 +35,12 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-const options = [
-  'Perfil',
-  'Sair do Sistema'
-]
-
 export default function Navbar() {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
+
+  const history = createBrowserHistory({forceRefresh: true})
   
   const handleMenu = (e) => {
     setAnchorEl(e.currentTarget)
@@ -49,6 +48,11 @@ export default function Navbar() {
   
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  function handleLogout() {
+    logout()
+    history.push('/')
   }
 
   return (
@@ -71,14 +75,7 @@ export default function Navbar() {
               keepMounted
               open={open}
               onClose={handleClose}>
-              {options.map((option) => (
-                <MenuItem key={option} 
-                          selected={option === 'Pyxis'} 
-                          onClick={handleClose}
-                >
-                  {option}
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleLogout}>Sair</MenuItem>
             </Menu>
           </Toolbar>
         </Container>
