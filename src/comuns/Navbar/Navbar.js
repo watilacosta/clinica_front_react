@@ -16,6 +16,7 @@ import { logout } from '../../services/auth'
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
+    marginBottom: 30
   },
   profileButton: {
     fontSize: 30
@@ -58,7 +59,7 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.navbar}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Toolbar className={classes.toobar}>
             <Typography variant="h5" className={classes.title}>Clínica Médica</Typography>
             <LinksMenu />

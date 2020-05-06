@@ -107,7 +107,7 @@ const FormLogin = () => {
       try {
         const response = await Api.post("/funcionario_token", {"auth": {email, password}})
         login(response.data.jwt)
-        history.push('/app')
+        history.push('/')
       } catch (err) {
         setError("Não foi possível fazer o login no sistema, verifique suas credenciais.")
         setOpen(true)

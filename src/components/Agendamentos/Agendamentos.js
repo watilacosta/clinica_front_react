@@ -1,13 +1,15 @@
 import React from "react"
 import Container from "@material-ui/core/Container"
+
 import Navbar from "../../comuns/Navbar"
+import Header from "../../comuns/Header"
 
 const Agendamentos = () => {
   return(
     <>
       <Navbar />
-      <Container maxWidth="lg">
-        <h1>Agendamentos</h1>
+      <Container maxWidth="xl">
+        <Header texto="Agendamentos" />
       </Container>
     </>
   )

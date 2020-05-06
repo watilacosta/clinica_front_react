@@ -1,33 +1,58 @@
-import React from 'react'
-import Link from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-
-const useStyles = makeStyles(() => ({
-  linkMenu: {
-    margin: 8,
-  }
-}))
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import GroupIcon from '@material-ui/icons/Group'
 
 const LinksMenu = () => {
-  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   return(
     <>
-      <Link component={RouterLink}
-            to="/app"
+      <Button component={RouterLink}
+            to="/"
             color="inherit"
-            underline="hover"
-            className={classes.linkMenu}>
-            Início
-      </Link>
-      <Link component={RouterLink}
+      >
+        Início
+      </Button>
+      <Button component={RouterLink}
             to="/agendamentos"
             color="inherit"
-            underline="hover"
-            className={classes.linkMenu}>
+            >
             Agendamentos
-      </Link>
+      </Button>
+      <Button aria-controls="simple-menu" 
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleClick}
+      >
+        Cadastros
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} component={RouterLink} to="/funcionarios">
+          <ListItemIcon>
+            <GroupIcon />
+          </ListItemIcon>
+          Funcionários
+        </MenuItem>
+      </Menu>
+
     </>
   )
 }
