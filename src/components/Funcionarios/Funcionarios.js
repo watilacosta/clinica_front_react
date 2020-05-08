@@ -1,37 +1,68 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Container from '@material-ui/core/Container'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PersonIcon from '@material-ui/icons/PersonAdd';
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/'
+import Button from '@material-ui/core/Button'
 
+// COMPONENTS
 import Navbar from '../../comuns/Navbar'
 import Header from '../../comuns/Header'
-import Api from '../../services/api'
 import TbFuncionarios from './components/TbFuncionarios'
 
-const Funcionarios = () => {
-  const [funcionarios, setFuncionarios] = useState([])
+// ACTIONS
+import { listar, salvar } from '../../store/FuncionariosReducer'
 
-  
-  const listarFuncionarios = () => {
-    Api.get("/funcionarios").then(resp => {
-      setFuncionarios(resp.data)
-      console.log(resp.data)
-    }).catch(error => {
-      console.log(error)
-    })
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginBottom: 30
   }
-  
+}));
+
+const Funcionarios = (props) => {
+  const classes = useStyles()
+
   useEffect(() => {
-    listarFuncionarios()
-  }, [])
+    props.listar()
+  })
+
+  const showForm = () => {
+
+  }
 
   return(
     <>
       <Navbar />
       <Container maxWidth="xl">
         <Header texto="Funcionarios" />
-        <TbFuncionarios funcionarios={funcionarios} />
+        <Grid
+          container
+          direction="row"
+          justify="flex-end"
+          alignItems="center"
+        >
+          <Button variant="outlined"
+                  size="large"
+                  className={classes.button}
+                  startIcon={<PersonIcon />}
+                  onClick={showForm}
+          >
+            Adicionar
+          </Button>
+        </Grid>
+        <TbFuncionarios funcionarios={props.funcionarios} />
       </Container>
     </>
   )
 }
 
-export default Funcionarios
+const mapStateToProps = state => ({
+  funcionarios: state.funcionarios.funcionarios
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({listar, salvar}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Funcionarios)
