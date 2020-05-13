@@ -14,13 +14,13 @@ export const funcionariosReducer = (state = ESTADO_INICIAL, action) => {
     case ACTIONS.LISTAR:
       return {...state, funcionarios: action.funcionarios}
     case ACTIONS.SALVAR:
-      return {...state, funcionarios: [...state.funcionarios, action.funcionarios]}
+      return {...state, funcionarios: [...state.funcionarios, action.funcionario]}
     default:
       return state
   }
 }
 
-export const listar = () => {
+export function listar() {
   return dispatch => {
     Api.get("/funcionarios").then(response => {
       dispatch({
@@ -33,13 +33,15 @@ export const listar = () => {
   }
 }
 
-export const salvar = (funcionario) => {
+export function salvar(funcionario) {
   return dispatch => {
     Api.post("/funcionarios", funcionario).then(response => {
       dispatch({
         type: ACTIONS.SALVAR,
         funcionario: response.data
       })
+    }).catch(error => {
+      console.log(error)
     })
   }
 }

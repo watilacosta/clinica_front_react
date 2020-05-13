@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@material-ui/core/Container'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PersonIcon from '@material-ui/icons/PersonAdd';
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/'
+import Paper from '@material-ui/core/Paper'
+import Collapse from '@material-ui/core/Collapse'
 import Button from '@material-ui/core/Button'
 
 // COMPONENTS
@@ -14,44 +16,69 @@ import TbFuncionarios from './components/TbFuncionarios'
 
 // ACTIONS
 import { listar, salvar } from '../../store/FuncionariosReducer'
+import FormFuncionario from './components/FormFuncionario';
 
-const useStyles = makeStyles((theme) => ({
-  button: {
+const useStyles = makeStyles(() => ({
+  container: {
     marginBottom: 30
+  },
+  gridContainer: {
+    marginBottom: 10
+  },
+  collapse: {
+    marginBottom: 40,
+  },
+  paper: {
+    padding: 20
   }
 }));
 
 const Funcionarios = (props) => {
   const classes = useStyles()
+  const [visible, setVisible] = useState(false)
+  
+  const { listar } = props
 
   useEffect(() => {
-    props.listar()
-  })
+    listar()
+  }, [listar])
 
-  const showForm = () => {
-
+  const toggleForm = () => {
+    setVisible(!visible)
   }
 
   return(
     <>
       <Navbar />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl"
+                 className={classes.container}
+      >
         <Header texto="Funcionarios" />
         <Grid
           container
-          direction="row"
-          justify="flex-end"
-          alignItems="center"
+          className={classes.gridContainer}
+          direction="column"
+          justify="center"
+          alignItems="flex-end"
+          
         >
           <Button variant="outlined"
                   size="large"
-                  className={classes.button}
                   startIcon={<PersonIcon />}
-                  onClick={showForm}
+                  onClick={toggleForm}
           >
             Adicionar
           </Button>
         </Grid>
+        <Collapse in={visible}
+                  timeout={500}
+                  className={classes.collapse}
+        >
+          <Paper className={classes.paper}>
+            <FormFuncionario salvar={props.salvar} toggleForm={toggleForm} />
+          </Paper>
+        </Collapse>
+
         <TbFuncionarios funcionarios={props.funcionarios} />
       </Container>
     </>
