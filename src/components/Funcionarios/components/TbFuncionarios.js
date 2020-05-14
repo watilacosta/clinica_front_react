@@ -17,6 +17,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  opcoes: {
+    margin: 5
+  }
 })
 
 export default function TbFuncionarios(props) {
@@ -24,7 +27,7 @@ export default function TbFuncionarios(props) {
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="a dense table" size="small">
+      <Table className={classes.table} aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Nome Completo</TableCell>
@@ -37,7 +40,7 @@ export default function TbFuncionarios(props) {
         </TableHead>
         <TableBody>
           { props.funcionarios.map((funcionario) => (
-            <TableRow key={funcionario.id}>
+            <TableRow key={funcionario.id} hover={true}>
               <TableCell component="th" scope="row">
                 <Chip avatar={<Avatar>{funcionario.nome.charAt(0).toUpperCase()}</Avatar>} 
                       label={`${funcionario.nome} ${funcionario.sobrenome}`}
@@ -48,10 +51,12 @@ export default function TbFuncionarios(props) {
               <TableCell align="center">{funcionario.cargo}</TableCell>
               <TableCell align="center">{`${funcionario.cidade || '-'} - ${funcionario.uf || '-'}`}</TableCell>
               <TableCell align="center">
-                <IconButton aria-label="edit" size="small">
+                <IconButton className={classes.opcoes} aria-label="edit" size="small">
                   <EditIcon fontSize="inherit" color="action" />
                 </IconButton>
-                <IconButton aria-label="delete" size="small">
+                <IconButton className={classes.opcoes} aria-label="delete" 
+                            size="small"
+                            onClick={() => props.excluir(funcionario.id)}>
                   <DeleteIcon fontSize="inherit" color="action" />
                 </IconButton>
               </TableCell>

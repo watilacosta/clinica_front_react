@@ -15,7 +15,7 @@ import Header from '../../comuns/Header'
 import TbFuncionarios from './components/TbFuncionarios'
 
 // ACTIONS
-import { listar, salvar } from '../../store/FuncionariosReducer'
+import { listar, salvar, excluir } from '../../store/FuncionariosReducer'
 import FormFuncionario from './components/FormFuncionario';
 
 const useStyles = makeStyles(() => ({
@@ -79,7 +79,8 @@ const Funcionarios = (props) => {
           </Paper>
         </Collapse>
 
-        <TbFuncionarios funcionarios={props.funcionarios} />
+        <TbFuncionarios funcionarios={props.funcionarios}
+                        excluir={props.excluir} />
       </Container>
     </>
   )
@@ -90,6 +91,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({listar, salvar}, dispatch)
+  bindActionCreators({ listar, salvar, excluir }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Funcionarios)

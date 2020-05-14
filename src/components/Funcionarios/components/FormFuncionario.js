@@ -41,23 +41,23 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
+const estadoInicial = {
+  nome: '',
+  sobrenome: '',
+  telefone: '',
+  email: '',
+  cpf: '',
+  cargo: '',
+  ctps: '',
+  pis: '',
+  endereco: '',
+  cidade: '',
+  uf: ''
+}
+
 const FormFuncionario = (props) => {
   const classes = useStyles()
-  const [funcionario, setFuncionario] = useState(
-    {
-      nome: '',
-      sobrenome: '',
-      telefone: '',
-      email: '',
-      cpf: '',
-      cargo: '',
-      ctps: '',
-      pis: '',
-      endereco: '',
-      cidade: '',
-      uf: ''
-    }
-  )
+  const [funcionario, setFuncionario] = useState(estadoInicial)
 
   const handleChange = event => {
     setFuncionario({
@@ -70,6 +70,7 @@ const FormFuncionario = (props) => {
     event.preventDefault()
     props.salvar(funcionario)
     props.toggleForm()
+    setFuncionario(estadoInicial)
   }
 
   return(
@@ -89,7 +90,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_nome" 
                       label="Nome"
                       name="nome"
-                      defaultValue={funcionario.nome}
+                      value={funcionario.nome}
                       variant="outlined"
                       required
                       fullWidth
@@ -102,7 +103,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_sobrenome" 
                       label="Sobrenome"
                       name="sobrenome"
-                      defaultValue={funcionario.sobrenome}
+                      value={funcionario.sobrenome}
                       variant="outlined"
                       required
                       fullWidth
@@ -115,7 +116,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_telefone"
                        label="Telefone"
                        name="telefone"
-                       defaultValue={funcionario.telefone}
+                       value={funcionario.telefone}
                        variant="outlined"
                        fullWidth
                        size="small"
@@ -127,7 +128,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_email"
                        label="Email"
                        name="email"
-                       defaultValue={funcionario.email}
+                       value={funcionario.email}
                        required
                        variant="outlined"
                        fullWidth
@@ -140,7 +141,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_cpf"
                        label="CPF"
                        name="cpf"
-                       defaultValue={funcionario.cpf}
+                       value={funcionario.cpf}
                        required
                        variant="outlined"
                        fullWidth
@@ -153,7 +154,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_cargo"
                        label="Cargo"
                        name="cargo"
-                       defaultValue={funcionario.cargo}
+                       value={funcionario.cargo}
                        required
                        variant="outlined"
                        fullWidth
@@ -166,7 +167,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_ctps"
                        label="CTPS"
                        name="ctps"
-                       defaultValue={funcionario.ctps}
+                       value={funcionario.ctps}
                        required
                        variant="outlined"
                        fullWidth
@@ -179,7 +180,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_pis"
                        label="PIS"
                        name="pis"
-                       defaultValue={funcionario.pis}
+                       value={funcionario.pis}
                        required
                        variant="outlined"
                        fullWidth
@@ -192,7 +193,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_endereco"
                        label="Endereço"
                        name="endereco"
-                       defaultValue={funcionario.endereco}
+                       value={funcionario.endereco}
                        required
                        variant="outlined"
                        fullWidth
@@ -205,7 +206,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_cidade"
                        label="Cidade"
                        name="cidade"
-                       defaultValue={funcionario.cidade}
+                       value={funcionario.cidade}
                        required
                        variant="outlined"
                        fullWidth
@@ -218,7 +219,7 @@ const FormFuncionario = (props) => {
             <TextField id="func_uf"
                        label="UF"
                        name="uf"
-                       defaultValue={funcionario.uf}
+                       value={funcionario.uf}
                        required
                        variant="outlined"
                        fullWidth
