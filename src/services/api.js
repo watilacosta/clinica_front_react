@@ -5,8 +5,6 @@ const Api = axios.create({
   baseURL: "http://localhost:3001/api/v1"
 })
 
-// Este algoritmo intercepta as requisições 
-// para a Api e envia o headers com o token
 Api.interceptors.request.use(async config => {
   const token = getToken()
   
